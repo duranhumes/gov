@@ -1,0 +1,3 @@
+{
+    "ignore": ["src/infrastructure/database/schemas"]
+}
