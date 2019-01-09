@@ -1,0 +1,1 @@
+export { DriversLicenceRepository } from './DriversLicence'

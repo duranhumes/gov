@@ -1,3 +1,2 @@
-export { MedicalRecordEntity } from './MedicalRecord'
-export { DriversLicenceEntity } from './DriversLicence'
+export { BaseEntity } from './BaseEntity'
 export { PersonEntity } from './Person'

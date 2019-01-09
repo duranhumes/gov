@@ -1,0 +1,1 @@
+export { MedicalRecordEntity } from './MedicalRecord'

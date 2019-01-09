@@ -15,7 +15,7 @@
         "prettier": "npx prettier --write '**/*.{ts,js,json}'"
     },
     "dependencies": {
-        "bunyan": "^1.8.12",
+        "bunyan": "^2.0.2",
         "bunyan-express-serializer": "^1.0.0",
         "bunyan-rotating-file-stream": "^1.6.3",
         "chai": "^4.2.0",
@@ -55,7 +55,7 @@
         "@types/uuid": "^3.4.4",
         "cross-env": "^5.2.0",
         "nodemon": "^1.18.9",
-        "pm2": "^3.2.4",
+        "pm2": "^3.2.7",
         "prettier": "^1.15.3",
         "ts-node": "7.0.1",
         "tslint": "^5.12.0",

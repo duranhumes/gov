@@ -1,2 +1,1 @@
-export { DriversLicenceRepository } from './DriversLicence'
-export { MedicalRecordsRepository } from './MedicalRecords'
+export { IRepository } from './IRepository'

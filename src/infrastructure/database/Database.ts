@@ -17,6 +17,7 @@ const database = isTesting
     : String(process.env.MYSQL_DATABASE)
 
 const baseTypeORMPath = 'src/infrastructure/database'
+const domainBaseTypeORMPath = 'src/domain'
 
 class Database {
     connectionOptions: ConnectionOptions
@@ -27,8 +28,14 @@ class Database {
             database,
             type: 'mysql',
             maxQueryExecutionTime: 800,
-            entities: [`${baseTypeORMPath}/entities/**/index.ts`],
-            subscribers: [`${baseTypeORMPath}/subscribers/**/index.ts`],
+            entities: [
+                `${baseTypeORMPath}/entities/**/index.ts`,
+                `${domainBaseTypeORMPath}/**/entities/**/index.ts`,
+            ],
+            subscribers: [
+                `${baseTypeORMPath}/subscribers/**/index.ts`,
+                `${domainBaseTypeORMPath}/**/subscribers/**/index.ts`,
+            ],
             migrations: [`${baseTypeORMPath}/migrations/*.ts`],
             host: String(process.env.MYSQL_HOST),
             port: Number(process.env.MYSQL_PORT),

@@ -1,5 +1,5 @@
 import { MedicalRecordEntity } from '../entities'
-import { IRepository } from './IRepository'
+import { IRepository } from '../../../infrastructure/database/repositories'
 
 export class MedicalRecordsRepository
     implements IRepository<MedicalRecordEntity> {

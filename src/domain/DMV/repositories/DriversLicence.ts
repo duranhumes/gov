@@ -1,5 +1,5 @@
 import { DriversLicenceEntity } from '../entities'
-import { IRepository } from './IRepository'
+import { IRepository } from '../../../infrastructure/database/repositories'
 
 export class DriversLicenceRepository
     implements IRepository<DriversLicenceEntity> {
