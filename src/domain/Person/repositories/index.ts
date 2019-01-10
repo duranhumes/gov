@@ -13,34 +13,55 @@ export class PersonRepository implements IRepository<PersonEntity> {
     }
 
     create = (person: PersonEntity) => {
-        return new Promise<Partial<PersonEntity>>(async (resolve, reject) => {
-            const tempPerson = new PersonEntity()
-            Object.assign(tempPerson, person)
-
-            const [newPerson, newPersonErr] = await promiseWrapper(
-                this.manager.insert(PersonEntity, tempPerson)
-            )
-            if (newPersonErr) {
-                if (newPersonErr.code === 'ER_DUP_ENTRY') {
+        return new Promise<Partial<PersonEntity>>((resolve, reject) => {
+            this.checkForDuplicates(person).then(async dupl => {
+                if (dupl) {
                     return reject({
                         code: 409,
-                        message: newPersonErr.message,
+                        message: 'This person already exists',
                     })
                 }
 
-                logging.error(newPersonErr)
+                const tempPerson = new PersonEntity()
+                Object.assign(tempPerson, person)
 
-                return reject({ code: 500, message: newPersonErr.message })
-            }
+                const [newPerson, newPersonErr] = await promiseWrapper(
+                    this.manager.insert(PersonEntity, tempPerson)
+                )
+                if (newPersonErr) {
+                    logging.error(newPersonErr)
 
-            return resolve(newPerson.identifiers[0].id)
+                    return reject({ code: 500, message: newPersonErr.message })
+                }
+
+                return resolve(newPerson.identifiers[0].id)
+            })
         })
     }
 
-    find = (id: string) => {
+    find = (key: string, value: string) => {
         return new Promise<PersonEntity>(async (resolve, reject) => {
             const [person, personErr] = await promiseWrapper(
-                this.manager.findOne(PersonEntity, { id })
+                this.manager.findOne(PersonEntity, { [key]: value })
+            )
+            if (personErr) {
+                logging.error(personErr)
+
+                return reject({ code: 500, message: personErr.message })
+            }
+
+            if (!person || isEmpty(person)) {
+                return reject({ code: 404, message: 'Person not found' })
+            }
+
+            return resolve(person)
+        })
+    }
+
+    findQuery = (query: object = {}) => {
+        return new Promise<PersonEntity>(async (resolve, reject) => {
+            const [person, personErr] = await promiseWrapper(
+                this.manager.findOne(PersonEntity, query)
             )
             if (personErr) {
                 logging.error(personErr)
@@ -76,5 +97,24 @@ export class PersonRepository implements IRepository<PersonEntity> {
 
     delete = async (id: string) => {
         console.log(id)
+    }
+
+    checkForDuplicates = async (personData: PersonEntity) => {
+        const { firstName, lastName, DOB, sex } = personData
+        const [person] = await promiseWrapper(
+            this.findQuery({
+                firstName: String(firstName),
+                lastName: String(lastName),
+                DOB: String(DOB),
+                sex: String(sex),
+            })
+        )
+        console.log({ person })
+
+        if (person && !isEmpty(person)) {
+            return true
+        }
+
+        return false
     }
 }

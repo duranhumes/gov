@@ -2,7 +2,10 @@ import {
     MedicalRecordsRepository,
     MedicalRecordEntity,
 } from '../../domain/Health'
-import { CreateMedicalRecordCmd } from './HealthCommands'
+import {
+    CreateMedicalRecordCmd,
+    UpdateMedicalRecordCmd,
+} from './HealthCommands'
 
 export class HealthService {
     medicalRecordsRepo: MedicalRecordsRepository
@@ -16,15 +19,29 @@ export class HealthService {
      *
      * For now with two personId's
      * One being the patient and the other
-     * a doctor
+     * a physician
      */
-    async createMedicalRecord({
-        patientId,
-        doctorId,
-    }: CreateMedicalRecordCmd): Promise<void> {
+    async createMedicalRecord(
+        medicalData: CreateMedicalRecordCmd
+    ): Promise<void> {
         const medicalRecord = new MedicalRecordEntity()
-        Object.assign(medicalRecord, { patientId, doctorId })
+        Object.assign(medicalRecord, medicalData)
 
         await this.medicalRecordsRepo.create(medicalRecord)
+    }
+
+    async findMedicalRecord(id: string): Promise<MedicalRecordEntity> {
+        const medicalRecord = await this.medicalRecordsRepo.find('id', id)
+
+        console.log({ medicalRecord })
+
+        return medicalRecord
+    }
+
+    async updateMedicalRecord(
+        id: string,
+        newData: UpdateMedicalRecordCmd
+    ): Promise<void> {
+        await this.medicalRecordsRepo.update(id, newData)
     }
 }

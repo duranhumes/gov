@@ -118,7 +118,10 @@ class Database {
                 const modelSchema = this.connection.getMetadata(entity.name)
                     .propertiesMap
 
-                const objKeys = Object.keys(modelSchema)
+                const keysToRemove = ['id', 'createdAt', 'updatedAt']
+                const objKeys = Object.keys(modelSchema).filter(
+                    k => !keysToRemove.includes(k)
+                )
                 const keys = objKeys.map((k: string) => `\n    '${k}'`)
                 const template = `export default [${keys},\n]\n`
 

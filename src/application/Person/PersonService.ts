@@ -8,9 +8,6 @@ export class PersonService {
         this.personRepo = new PersonRepository()
     }
 
-    /**
-     * Creates a new person
-     */
     async createPerson(personData: CreatePersonCmd) {
         const person = new PersonEntity()
         Object.assign(person, personData)
@@ -20,18 +17,12 @@ export class PersonService {
         return newPersonId
     }
 
-    /**
-     * Find a person
-     */
     async findPerson(id: string): Promise<PersonEntity> {
-        const person = await this.personRepo.find(id)
+        const person = await this.personRepo.find('id', id)
 
         return person
     }
 
-    /**
-     * Update a persons info
-     */
     async updatePerson(id: string, newData: UpdatePersonCmd): Promise<void> {
         await this.personRepo.update(id, newData)
     }

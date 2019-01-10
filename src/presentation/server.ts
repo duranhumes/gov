@@ -6,6 +6,7 @@ import * as compression from 'compression'
 import * as rateLimit from 'express-rate-limit'
 
 import { PersonController } from './domain/Person'
+import { HealthController } from './domain/Health'
 import { gate, errorHandler, contentType } from './middlewares'
 
 morgan.token('id', req => req.ip)
@@ -60,8 +61,9 @@ app.use('/v1', router)
 
 router.use(contentType)
 
-router.get('/health', (_, res) => res.sendStatus(200))
+router.get('/_healthz', (_, res) => res.sendStatus(200))
 router.use('/persons', PersonController)
+router.use('/health', HealthController)
 
 app.use(errorHandler)
 

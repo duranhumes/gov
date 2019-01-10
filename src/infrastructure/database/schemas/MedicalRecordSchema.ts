@@ -1,7 +1,6 @@
 export default [
-    'id',
-    'createdAt',
-    'updatedAt',
+    'description',
+    'hasInsurance',
     'bloodType',
     'physician',
     'patient',
