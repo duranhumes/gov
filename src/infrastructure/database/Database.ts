@@ -1,4 +1,4 @@
-import { access, writeFileSync, constants, readdir, unlink } from 'fs'
+import { writeFileSync, readdir, unlink } from 'fs'
 import { normalize, join } from 'path'
 import { promisify } from 'util'
 import {
@@ -8,7 +8,7 @@ import {
     getManager,
 } from 'typeorm'
 
-import { logger } from '../../common/utils/logging'
+import logging from '../../common/utils/logging'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const isTesting = process.env.NODE_ENV === 'test'
@@ -62,7 +62,7 @@ class Database {
         try {
             this.connection = await createConnection(this.connectionOptions)
         } catch (err) {
-            logger('Error in db connection', err, 500)
+            logging.error('Error in db connection', err, 500)
             console.error('Error in db connection: ', err)
 
             process.exit(1)
@@ -73,7 +73,7 @@ class Database {
         try {
             await this.connection.close()
         } catch (err) {
-            logger('Error in db connection close', err, 500)
+            logging.error('Error in db connection close', err, 500)
             console.error('Error in db connection close: ', err)
 
             process.exit(1)
@@ -109,35 +109,20 @@ class Database {
             const schemasDir = normalize(join(__dirname, 'schemas'))
 
             await this.clearSchemasDir(schemasDir)
-
             for (const entity of entities) {
                 const entityName =
                     entity.name.charAt(0).toUpperCase() +
-                    entity.name.slice(1).replace('Entity', '')
+                    entity.name.slice(1).replace('Entity', 'Schema')
                 const schemaFile = `${schemasDir}/${entityName}.ts`
-                access(schemaFile, constants.F_OK, err => {
-                    if (err && err.code !== 'ENOENT') {
-                        console.error(err)
 
-                        process.exit(1)
-                    }
+                const modelSchema = this.connection.getMetadata(entity.name)
+                    .propertiesMap
 
-                    try {
-                        const modelSchema = this.connection.getMetadata(
-                            entity.name
-                        ).propertiesMap
+                const objKeys = Object.keys(modelSchema)
+                const keys = objKeys.map((k: string) => `\n    '${k}'`)
+                const template = `export default [${keys},\n]\n`
 
-                        const objKeys = Object.keys(modelSchema)
-                        const keys = objKeys.map((k: string) => `\n    '${k}'`)
-                        const template = `export default [${keys},\n]\n`
-
-                        writeFileSync(schemaFile, template)
-                    } catch (err) {
-                        console.error(err)
-
-                        return
-                    }
-                })
+                writeFileSync(schemaFile, template)
             }
 
             console.info('=> Entity schemas created!')

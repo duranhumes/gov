@@ -37,7 +37,7 @@ const mainLoggerStreams: RotatingFileStream[] = [
     errorStreamerRotatedByLength,
 ]
 
-export const stream = bunyan.createLogger({
+export default bunyan.createLogger({
     name: String(process.env.APP_NAME),
     serializers: {
         req: require('bunyan-express-serializer'),
@@ -46,20 +46,3 @@ export const stream = bunyan.createLogger({
     },
     streams: mainLoggerStreams,
 })
-
-export function logger(id: any, body: any, statusCode: any) {
-    const log = stream.child(
-        {
-            id,
-            body,
-            statusCode,
-        },
-        true
-    )
-
-    if (statusCode > 404) {
-        return log.error(body)
-    }
-
-    return log.info(body)
-}

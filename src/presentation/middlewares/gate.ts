@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 
-import { logger } from '../../common/utils/logging'
+import logging from '../../common/utils/logging'
 import * as httpMessages from '../utils/httpMessages'
 
 export const gate = (
@@ -10,7 +10,11 @@ export const gate = (
     next: NextFunction
 ) => {
     if (err) {
-        logger(req.ip, err, req.statusCode)
+        logging.error({
+            ip: req.ip,
+            message: req.statusMessage,
+            code: req.statusCode,
+        })
 
         return res.status(500).json(httpMessages.code500())
     }

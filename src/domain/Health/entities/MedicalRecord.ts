@@ -1,10 +1,8 @@
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm'
 import { Length } from 'class-validator'
 
-import {
-    BaseEntity,
-    PersonEntity,
-} from '../../../infrastructure/database/entities'
+import { BaseEntity } from '../../../infrastructure/database/entities'
+import { PersonEntity } from '../../Person/entities'
 
 @Entity('medicalRecords')
 export class MedicalRecordEntity extends BaseEntity {

@@ -6,7 +6,7 @@
     "license": "MIT",
     "scripts": {
         "test": "cross-env NODE_ENV=test npx mocha -r ts-node/register **/*.spec.ts --timeout 10000 --exit",
-        "start": "cross-env NODE_ENV=development npx nodemon --exec npx ts-node src/application/index.ts",
+        "start": "cross-env NODE_ENV=development npx nodemon --exec npx ts-node src/index.ts",
         "build": "npx rimraf build && cross-env npx tsc",
         "prod": "cross-env yarn build && cross-env NODE_ENV=production npx pm2 start ecosystem.config.js --env production",
         "postinstall": "yarn prettier && yarn lint",

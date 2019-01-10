@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 
-import { logger } from '../../common/utils/logging'
-
 export const contentType = (
     req: Request,
     res: Response,
@@ -14,8 +12,6 @@ export const contentType = (
             ? allowedContentTypes.filter(s => type.includes(s))
             : []
         if (!type || contentTypeMatches.length === 0) {
-            logger(req.ip, req.statusMessage, req.statusCode)
-
             return res.status(406).json({
                 status: 406,
                 error: 'Bad Content-Type Header',

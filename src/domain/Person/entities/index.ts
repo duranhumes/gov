@@ -1,13 +1,9 @@
 import { Entity, Column } from 'typeorm'
-import { Length, IsEnum } from 'class-validator'
+import { Length } from 'class-validator'
 
-import { BaseEntity } from './BaseEntity'
+import { BaseEntity } from '../../../infrastructure/database/entities'
 
-enum Gender {
-    'Male',
-    'Female',
-    'Other',
-}
+export const Genders = ['Male', 'Female', 'Other']
 
 @Entity('persons')
 export class PersonEntity extends BaseEntity {
@@ -31,9 +27,8 @@ export class PersonEntity extends BaseEntity {
     @Length(3, 255)
     DOB: string | undefined
 
-    @Column({ type: 'varchar', width: 6, nullable: false })
-    @IsEnum(Gender)
-    sex: Gender | undefined
+    @Column({ type: 'enum', enum: Genders, nullable: false })
+    sex: string | undefined
 
     @Column({ type: 'varchar', length: 255, nullable: true })
     @Length(3, 255)

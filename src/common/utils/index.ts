@@ -62,7 +62,7 @@ export function pick(obj: object, keys: string[]) {
 interface CustomError extends Error {
     code: string | number
 }
-export async function promisifyWrapper<E = CustomError>(
+export async function promiseWrapper<E = CustomError>(
     promise: Promise<any>
 ): Promise<[any | undefined, undefined | E]> {
     try {
@@ -150,4 +150,13 @@ export function escapeString(str: string) {
     return escape(String(str))
         .replace(/\s+/g, ' ')
         .trim()
+}
+
+/**
+ * Convert typescript enums to arrays
+ */
+export function enumToArray<E>(E: any): E[] {
+    const keys = Object.keys(E).filter(k => typeof E[k as any] === 'string')
+
+    return keys.map(k => E[k as any])
 }

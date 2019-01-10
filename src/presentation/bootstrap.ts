@@ -2,7 +2,7 @@ import 'dotenv-safe/config'
 import 'reflect-metadata'
 import { createServer } from 'http'
 
-import { logger } from '../common/utils/logging'
+import logging from '../common/utils/logging'
 import { Database } from '../infrastructure/database'
 
 const port = Number(process.env.PORT) || 8080
@@ -53,7 +53,7 @@ function closeServer() {
 process.on(
     'uncaughtException',
     (exception: NodeJS.ErrnoException): void => {
-        logger('uncaughtException', exception, 500)
+        logging.error(exception)
         console.error('uncaughtException: ', exception)
         closeServer()
 
@@ -64,7 +64,7 @@ process.on(
 process.on(
     'unhandledRejection',
     (reason: any, promise: any): void => {
-        logger('unhandledRejection', { promise, reason }, 500)
+        logging.error({ promise, reason })
         console.error('unhandledRejection: ', promise, ' reason: ', reason)
         closeServer()
 

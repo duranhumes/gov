@@ -1,10 +1,8 @@
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm'
 import { Length } from 'class-validator'
 
-import {
-    BaseEntity,
-    PersonEntity,
-} from '../../../infrastructure/database/entities'
+import { BaseEntity } from '../../../infrastructure/database/entities'
+import { PersonEntity } from '../../Person/entities'
 
 @Entity('driversLicence')
 export class DriversLicenceEntity extends BaseEntity {
@@ -14,8 +12,6 @@ export class DriversLicenceEntity extends BaseEntity {
 
     @Column({ type: 'varchar', length: 255, nullable: false })
     expiryDate: Date | undefined
-
-    // @Column({type: 'tinyint', width: 1, nullable: false, default: false})
 
     @OneToOne(_ => PersonEntity)
     @JoinColumn()
