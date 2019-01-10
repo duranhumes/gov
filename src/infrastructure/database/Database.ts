@@ -29,11 +29,11 @@ class Database {
             type: 'mysql',
             maxQueryExecutionTime: 800,
             entities: [
-                `${infraDBPath}/entities/**/index.ts`,
-                `${domainBasePath}/**/entities/**/index.ts`,
+                `${infraDBPath}/entities/*.ts`,
+                `${domainBasePath}/**/entities/*.ts`,
             ],
             subscribers: [
-                `${infraDBPath}/subscribers/**/index.ts`,
+                `${infraDBPath}/subscribers/index.ts`,
                 `${domainBasePath}/**/subscribers/**/index.ts`,
             ],
             migrations: [`${infraDBPath}/migrations/*.ts`],
