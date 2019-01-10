@@ -15,5 +15,5 @@ export class DriversLicenseEntity extends BaseEntity {
 
     @OneToOne(_ => PersonEntity)
     @JoinColumn()
-    person: PersonEntity | undefined
+    driver: PersonEntity | undefined
 }

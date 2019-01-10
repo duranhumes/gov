@@ -1,5 +1,5 @@
 export interface CreateDMVRecordCmd {
-    driverId: string | undefined
-    licenseNo: string | undefined
-    expiryDate: Date | undefined
+    driver: string
+    licenseNo: string
+    expiryDate: Date
 }
