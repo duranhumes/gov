@@ -1,6 +1,8 @@
 import 'dotenv-safe/config'
 import 'reflect-metadata'
 import { createServer } from 'http'
+import { statSync, mkdirSync } from 'fs'
+import { normalize, join, resolve } from 'path'
 
 import logging from '../common/utils/logging'
 import { Database } from '../infrastructure/database'
@@ -9,8 +11,17 @@ const port = Number(process.env.PORT) || 8080
 
 let httpServer = createServer()
 async function main() {
+    // Create logs directory
+    const logsDir = normalize(join(resolve(__dirname, '..', '..'), 'logs'))
+    try {
+        statSync(logsDir)
+    } catch (e) {
+        mkdirSync(logsDir)
+    }
+
     await Database.init()
 
+    // Start server
     setImmediate(() => {
         const app = require('./server').default
         app.set('port', port)
