@@ -21,4 +21,5 @@ a citizen to also utilize other e-government services online like applying for a
 --
 
 The project is structured in a DDD style with the agency / person being the domain but in a non-trivial version those 
-domains would be completely separate projects with more fine-grained domains for a particular agency & person.
+domains would be completely separate projects with more fine-grained domains for a particular agency & person in a distributed
+system.
