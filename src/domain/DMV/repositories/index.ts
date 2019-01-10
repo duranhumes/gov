@@ -1,1 +1,1 @@
-export { DriversLicenceRepository } from './DriversLicence'
+export { DriversLicenseRepository } from './DriversLicense'

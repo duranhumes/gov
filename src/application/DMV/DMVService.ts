@@ -1,27 +1,27 @@
 import {
-    DriversLicenceRepository,
-    DriversLicenceEntity,
+    DriversLicenseRepository,
+    DriversLicenseEntity,
 } from '../../domain/DMV'
 import { CreateDMVRecordCmd } from './DMVCommands'
 
 export class DMVService {
-    driversLicenceRepo: DriversLicenceRepository
+    driversLicenseRepo: DriversLicenseRepository
 
     constructor() {
-        this.driversLicenceRepo = new DriversLicenceRepository()
+        this.driversLicenseRepo = new DriversLicenseRepository()
     }
 
     /**
-     * Creates a new drivers licence
+     * Creates a new drivers license
      */
-    async createDriversLicence({
+    async createDriversLicense({
         driverId,
-        licenceNo,
+        licenseNo,
         expiryDate,
     }: CreateDMVRecordCmd): Promise<void> {
-        const driversLicence = new DriversLicenceEntity()
-        Object.assign(driversLicence, { driverId, licenceNo, expiryDate })
+        const driversLicense = new DriversLicenseEntity()
+        Object.assign(driversLicense, { driverId, licenseNo, expiryDate })
 
-        await this.driversLicenceRepo.create(driversLicence)
+        await this.driversLicenseRepo.create(driversLicense)
     }
 }

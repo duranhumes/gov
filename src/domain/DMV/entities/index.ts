@@ -1,1 +1,1 @@
-export { DriversLicenceEntity } from './DriversLicence'
+export { DriversLicenseEntity } from './DriversLicense'

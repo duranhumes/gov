@@ -2,7 +2,7 @@ export default [
     'id',
     'createdAt',
     'updatedAt',
-    'licenceNo',
+    'licenseNo',
     'expiryDate',
     'person',
 ]
