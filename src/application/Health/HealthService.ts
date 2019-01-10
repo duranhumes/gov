@@ -33,8 +33,6 @@ export class HealthService {
     async findMedicalRecord(id: string): Promise<MedicalRecordEntity> {
         const medicalRecord = await this.medicalRecordsRepo.find('id', id)
 
-        console.log({ medicalRecord })
-
         return medicalRecord
     }
 

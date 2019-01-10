@@ -109,7 +109,6 @@ export class PersonRepository implements IRepository<PersonEntity> {
                 sex: String(sex),
             })
         )
-        console.log({ person })
 
         if (person && !isEmpty(person)) {
             return true

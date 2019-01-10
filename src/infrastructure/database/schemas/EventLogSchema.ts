@@ -1,7 +1,1 @@
-export default [
-    'type',
-    'table',
-    'entityId',
-    'before',
-    'after',
-]
+export default ['type', 'table', 'entityId', 'before', 'after']

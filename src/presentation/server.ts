@@ -4,6 +4,7 @@ import * as cors from 'cors'
 import * as morgan from 'morgan'
 import * as compression from 'compression'
 import * as rateLimit from 'express-rate-limit'
+import * as hpp from 'hpp'
 
 import { PersonController } from './domain/Person'
 import { HealthController } from './domain/Health'
@@ -45,6 +46,7 @@ app.use(
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 app.use(express.json({ limit: '10mb' }))
 app.use(compression())
+app.use(hpp())
 app.use(
     morgan(loggerFormat, {
         stream: process.stderr,
