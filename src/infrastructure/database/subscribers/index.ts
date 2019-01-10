@@ -28,30 +28,18 @@ export class EverythingSubscriber implements EntitySubscriberInterface {
         this.eventLogRepo = new EventLogRepository()
     }
 
-    /**
-     * Called before entity insertion.
-     */
     beforeInsert(event: InsertEvent<any>) {
         this.before = event.entity
     }
 
-    /**
-     * Called before entity insertion.
-     */
     beforeUpdate(event: UpdateEvent<any>) {
         this.before = event.entity
     }
 
-    /**
-     * Called before entity insertion.
-     */
     beforeRemove(event: RemoveEvent<any>) {
         this.before = event.entity
     }
 
-    /**
-     * Called after entity insertion.
-     */
     afterInsert(event: InsertEvent<any>) {
         this.after = event.entity
 
@@ -73,9 +61,6 @@ export class EverythingSubscriber implements EntitySubscriberInterface {
         }
     }
 
-    /**
-     * Called after entity insertion.
-     */
     afterUpdate(event: UpdateEvent<any>) {
         this.after = event.entity
 
@@ -97,9 +82,6 @@ export class EverythingSubscriber implements EntitySubscriberInterface {
         }
     }
 
-    /**
-     * Called after entity insertion.
-     */
     afterRemove(event: RemoveEvent<any>) {
         this.after = event.entity
 
@@ -121,9 +103,6 @@ export class EverythingSubscriber implements EntitySubscriberInterface {
         }
     }
 
-    /**
-     * Called after entity is loaded.
-     */
     afterLoad(event: any) {
         this.after = event
 
