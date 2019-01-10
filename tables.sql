@@ -28,10 +28,10 @@ CREATE TABLE `driversLicense` (
   `updatedAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `licenseNo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiryDate` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `personId` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `driverId` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `REL_fe694c06d40da0ac9d2fc0d540` (`personId`),
-  CONSTRAINT `FK_fe694c06d40da0ac9d2fc0d540b` FOREIGN KEY (`personId`) REFERENCES `persons` (`id`)
+  UNIQUE KEY `REL_0c8aaa7ccde12d889c76c308ff` (`driverId`),
+  CONSTRAINT `FK_0c8aaa7ccde12d889c76c308ffd` FOREIGN KEY (`driverId`) REFERENCES `persons` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -146,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-10  1:32:31
+-- Dump completed on 2019-01-10  9:22:49

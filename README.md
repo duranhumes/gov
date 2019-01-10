@@ -15,8 +15,8 @@ since every government agency would have access to your basic information.
 Now security would need to be first priority in a system like this for obvious reasons, you'd want to log 
 every thing an authenticated government agent does like basic CRUD on a persons information and give agency 
 heads the ability to rollback changes to a person's information at any point in history that pertains to that 
-specific agency etc. And there would also be an identity strategy beyond the basic 'person' information.
-
+specific agency etc. And there would also be an identity strategy beyond the basic 'person' information to allow 
+a citizen to also utilize other e-government services online like applying for a business license, renewals etc.
 
 --
 

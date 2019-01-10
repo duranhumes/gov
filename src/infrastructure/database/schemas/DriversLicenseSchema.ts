@@ -1,1 +1,1 @@
-export default ['licenseNo', 'expiryDate', 'person']
+export default ['licenseNo', 'expiryDate', 'driver']
