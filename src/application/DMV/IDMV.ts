@@ -1,4 +1,4 @@
-export interface CreateDMVRecordCmd {
+export interface ICreateDMVRecord {
     driver: string
     licenseNo: string
     expiryDate: Date

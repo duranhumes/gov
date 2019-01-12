@@ -1,2 +1,2 @@
-export * from './HealthCommands'
+export * from './IHealth'
 export { HealthService } from './HealthService'

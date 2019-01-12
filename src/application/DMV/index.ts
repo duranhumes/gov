@@ -1,2 +1,2 @@
-export * from './DMVCommands'
+export * from './IDMV'
 export { DMVService } from './DMVService'
