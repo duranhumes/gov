@@ -1,4 +1,4 @@
-import { PersonEntity } from '@domain/Person'
+import { PersonEntity } from '../../domain/Person'
 
 export interface ICreatePerson {
     firstName: string

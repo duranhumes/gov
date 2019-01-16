@@ -1,5 +1,5 @@
 import { PersonRepository, PersonEntity } from '../../domain/Person'
-import { CreatePersonCmd, UpdatePersonCmd } from './PersonCommands'
+import { ICreatePerson, IUpdatePerson } from './IPerson'
 
 export class PersonService {
     personRepo: PersonRepository
@@ -8,7 +8,7 @@ export class PersonService {
         this.personRepo = new PersonRepository()
     }
 
-    async createPerson(personData: CreatePersonCmd) {
+    async createPerson(personData: ICreatePerson) {
         const person = new PersonEntity()
         Object.assign(person, personData)
 
@@ -23,7 +23,7 @@ export class PersonService {
         return person
     }
 
-    async updatePerson(id: string, newData: UpdatePersonCmd): Promise<void> {
+    async updatePerson(id: string, newData: IUpdatePerson): Promise<void> {
         await this.personRepo.update(id, newData)
     }
 }

@@ -1,2 +1,2 @@
-export * from './PersonCommands'
+export * from './IPerson'
 export { PersonService } from './PersonService'

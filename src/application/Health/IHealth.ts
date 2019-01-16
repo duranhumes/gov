@@ -1,4 +1,4 @@
-import { MedicalRecordEntity } from '@domain/Health'
+import { MedicalRecordEntity } from '../../domain/Health'
 
 export interface ICreateMedicalRecord {
     description: string

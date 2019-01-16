@@ -75,9 +75,6 @@ class Controller {
             return res.status(500).json(httpMessages.code500())
         }
 
-        /**
-         * Find new person
-         */
         const [newPerson, newPersonErr] = await promiseWrapper(
             this.personService.findPerson(personId)
         )

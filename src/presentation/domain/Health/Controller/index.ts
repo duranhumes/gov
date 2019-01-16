@@ -83,9 +83,6 @@ class Controller {
             return res.status(500).json(httpMessages.code500())
         }
 
-        /**
-         * Find new medicalRecord
-         */
         const [newMedicalRecord, newMedicalRecordErr] = await promiseWrapper(
             this.healthService.findMedicalRecord(medicalRecordId)
         )

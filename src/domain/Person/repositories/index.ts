@@ -13,29 +13,28 @@ export class PersonRepository implements IRepository<PersonEntity> {
     }
 
     create = (person: PersonEntity) => {
-        return new Promise<Partial<PersonEntity>>((resolve, reject) => {
-            this.checkForDuplicates(person).then(async dupl => {
-                if (dupl) {
-                    return reject({
-                        code: 409,
-                        message: 'This person already exists',
-                    })
-                }
+        return new Promise<Partial<PersonEntity>>(async (resolve, reject) => {
+            const dupl = await this.checkForDuplicates(person)
+            if (dupl) {
+                return reject({
+                    code: 409,
+                    message: 'This person already exists',
+                })
+            }
 
-                const tempPerson = new PersonEntity()
-                Object.assign(tempPerson, person)
+            const tempPerson = new PersonEntity()
+            Object.assign(tempPerson, person)
 
-                const [newPerson, newPersonErr] = await promiseWrapper(
-                    this.manager.insert(PersonEntity, tempPerson)
-                )
-                if (newPersonErr) {
-                    logging.error(newPersonErr)
+            const [newPerson, newPersonErr] = await promiseWrapper(
+                this.manager.insert(PersonEntity, tempPerson)
+            )
+            if (newPersonErr) {
+                logging.error(newPersonErr)
 
-                    return reject({ code: 500, message: newPersonErr.message })
-                }
+                return reject({ code: 500, message: newPersonErr.message })
+            }
 
-                return resolve(newPerson.identifiers[0].id)
-            })
+            return resolve(newPerson.identifiers[0].id)
         })
     }
 

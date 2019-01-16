@@ -18,13 +18,15 @@ export class HealthService {
      * One being the patient and the other
      * a physician
      */
-    async createMedicalRecord(
-        medicalData: ICreateMedicalRecord
-    ): Promise<void> {
+    async createMedicalRecord(medicalData: ICreateMedicalRecord) {
         const medicalRecord = new MedicalRecordEntity()
         Object.assign(medicalRecord, medicalData)
 
-        await this.medicalRecordsRepo.create(medicalRecord)
+        const medicalRecodId = await this.medicalRecordsRepo.create(
+            medicalRecord
+        )
+
+        return medicalRecodId
     }
 
     async findMedicalRecord(id: string): Promise<MedicalRecordEntity> {
