@@ -22,11 +22,11 @@ export class HealthService {
         const medicalRecord = new MedicalRecordEntity()
         Object.assign(medicalRecord, medicalData)
 
-        const medicalRecodId = await this.medicalRecordsRepo.create(
+        const medicalRecordId = await this.medicalRecordsRepo.create(
             medicalRecord
         )
 
-        return medicalRecodId
+        return medicalRecordId
     }
 
     async findMedicalRecord(id: string): Promise<MedicalRecordEntity> {

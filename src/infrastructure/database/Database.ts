@@ -49,7 +49,7 @@ class Database {
 
     async init() {
         await this.openConnection()
-        await this.genModelSchemas()
+        await this.genEntitySchemas()
 
         console.info('=> DB successfully connected')
     }
@@ -100,10 +100,10 @@ class Database {
     }
 
     /**
-     * Loop through all models and gen schemas
+     * Loop through all entities and gen schemas
      * to validate against later
      */
-    private async genModelSchemas() {
+    private async genEntitySchemas() {
         try {
             const entities = this.connection.entityMetadatas
             const schemasDir = normalize(join(__dirname, 'schemas'))
@@ -115,11 +115,11 @@ class Database {
                     entity.name.slice(1).replace('Entity', 'Schema')
                 const schemaFile = `${schemasDir}/${entityName}.ts`
 
-                const modelSchema = this.connection.getMetadata(entity.name)
+                const entitySchema = this.connection.getMetadata(entity.name)
                     .propertiesMap
 
                 const keysToRemove = ['id', 'createdAt', 'updatedAt']
-                const objKeys = Object.keys(modelSchema).filter(
+                const objKeys = Object.keys(entitySchema).filter(
                     k => !keysToRemove.includes(k)
                 )
                 const keys = objKeys.map((k: string) => `\n    '${k}'`)
